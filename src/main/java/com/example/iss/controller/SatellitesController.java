@@ -2,7 +2,10 @@ package com.example.iss.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.iss.model.Position;
 import com.example.iss.service.SatellitesService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +22,7 @@ public class SatellitesController {
 	SatellitesService ss;
 
 	@GetMapping("/satellites")
-	public String getPosition(@RequestParam long startTime) throws Exception {
+	public List<Position>  getPosition(@RequestParam long startTime) throws Exception {
 		System.out.println(startTime);
 		return ss.getPosition(startTime);
 	}

@@ -15,7 +15,7 @@ import com.example.iss.utils.MsgUtils;
 public class SatellitesService {
 	private final static String satelliteEndpoint = "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=";
 
-	public String getPosition(long startTime) throws Exception {
+	public List<Position>  getPosition(long startTime) throws Exception {
 		try {
 			// get data before start time
 			List<Long> beforeStartTime = getOneHour(startTime, false);
@@ -42,7 +42,7 @@ public class SatellitesService {
 			result.addAll(positions1);
 			result.addAll(positions2);
 			result.addAll(positions3);
-			return MsgUtils.objToJSONString(result);
+			return result;
 
 		} catch (Exception e) {
 			throw e;
