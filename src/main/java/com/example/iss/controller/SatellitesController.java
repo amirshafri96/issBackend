@@ -26,4 +26,10 @@ public class SatellitesController {
 		System.out.println(startTime);
 		return ss.getPosition(startTime);
 	}
+	
+	@GetMapping("/getAllData")
+	public String  getPosition2(@RequestParam long startTime) throws Exception {
+		System.out.println(startTime);
+		return ss.getPosition2(startTime);
+	}
 }

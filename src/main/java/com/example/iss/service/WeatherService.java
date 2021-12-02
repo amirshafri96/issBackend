@@ -35,7 +35,7 @@ public class WeatherService {
 		return restTemplate.getForObject(baseUrlLocation, String.class);
 	}
 
-	public static String getWeatherByPosition(List<Position> payload) {
+	public static List<Forecast> getWeatherByPosition(List<Position> payload) {
 		Gson g = new Gson();
 		List<Forecast> output = new ArrayList<>();
 		for (Position p : payload) {
@@ -43,7 +43,7 @@ public class WeatherService {
 			Forecast forecast = g.fromJson(output1, Forecast.class);
 			output.add(forecast);
 		}
-		System.out.println(output.size());
-		return g.toJson(output);
+		return output;
+	
 	}
 }

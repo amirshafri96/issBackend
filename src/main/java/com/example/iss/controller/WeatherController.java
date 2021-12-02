@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.iss.model.Forecast;
 import com.example.iss.model.Position;
 import com.example.iss.service.WeatherService;
+import com.google.gson.Gson;
 
 @RestController
 @CrossOrigin
@@ -35,6 +36,8 @@ public class WeatherController {
 	
 	@GetMapping("/getWeatherByPosition")
 	public String getWeatherByPosition(@RequestBody List<Position> payload) throws Exception {
-		return ws.getWeatherByPosition(payload);
+		List<Forecast> output = ws.getWeatherByPosition(payload);
+		Gson g = new Gson();
+		return g.toJson(output);
 	}
 }

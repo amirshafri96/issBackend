@@ -5,17 +5,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.iss.model.Forecast;
 import com.example.iss.model.Position;
 import com.example.iss.utils.MsgUtils;
+import com.example.response.PositionForecast;
+import com.google.gson.Gson;
 
 @Service
 public class SatellitesService {
+	
+	@Autowired
+	WeatherService ws;
+	
 	private final static String satelliteEndpoint = "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=";
 
-	public List<Position>  getPosition(long startTime) throws Exception {
+	public static List<Position>  getPosition(long startTime) throws Exception {
 		try {
 			// get data before start time
 			List<Long> beforeStartTime = getOneHour(startTime, false);
@@ -79,5 +87,18 @@ public class SatellitesService {
 
 	}
 
-//	publoi
+	public String getPosition2(long startTime) throws Exception{
+		Gson g = new Gson();
+		try {
+			List<Position> positions = getPosition(startTime);
+			List<Forecast> forecasts =	ws.getWeatherByPosition(positions);
+			PositionForecast positionForecast = new PositionForecast();
+			positionForecast.setForecasts(forecasts);
+			positionForecast.setPosition(positions);
+			return  g.toJson(positionForecast);
+		}catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
+	}
 }
