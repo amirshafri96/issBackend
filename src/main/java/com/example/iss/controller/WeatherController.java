@@ -21,4 +21,10 @@ public class WeatherController {
 		System.out.println(cityName);
 		return ws.getWeather(cityName);
 	}
+
+	@GetMapping("/getWeatherByLocation")
+	public String getWeatherByLocation(@RequestParam double lat, double lng) throws Exception {
+		System.out.println(lat + " " + lng);
+		return ws.getWeatherByLocation(lat, lng);
+	}
 }
