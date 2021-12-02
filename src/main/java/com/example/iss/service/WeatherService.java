@@ -6,7 +6,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.iss.model.Forecast;
 import com.example.iss.model.Position;
+import com.example.iss.utils.MsgUtils;
+import com.google.gson.Gson;
 
 @Service
 public class WeatherService {
@@ -32,11 +35,15 @@ public class WeatherService {
 		return restTemplate.getForObject(baseUrlLocation, String.class);
 	}
 
-	public static List<String> getWeatherByPosition(List<Position> payload) {
-		List<String> output = new ArrayList<>();
-		for(Position p: payload) {
-			output.add(getWeatherByLocation(p.getLatitude(), p.getLongitude()));
+	public static String getWeatherByPosition(List<Position> payload) {
+		Gson g = new Gson();
+		List<Forecast> output = new ArrayList<>();
+		for (Position p : payload) {
+			String output1 = getWeatherByLocation(p.getLatitude(), p.getLongitude());
+			Forecast forecast = g.fromJson(output1, Forecast.class);
+			output.add(forecast);
 		}
-		return output;
+		System.out.println(output.size());
+		return g.toJson(output);
 	}
 }

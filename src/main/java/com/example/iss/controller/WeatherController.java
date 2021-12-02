@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.iss.model.Forecast;
 import com.example.iss.model.Position;
 import com.example.iss.service.WeatherService;
 
@@ -33,7 +34,7 @@ public class WeatherController {
 	}
 	
 	@GetMapping("/getWeatherByPosition")
-	public List<String> getWeatherByPosition(@RequestBody List<Position> payload) throws Exception {
+	public String getWeatherByPosition(@RequestBody List<Position> payload) throws Exception {
 		return ws.getWeatherByPosition(payload);
 	}
 }

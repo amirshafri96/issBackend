@@ -1,5 +1,8 @@
 package com.example.iss.model;
 
-public class Observations {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Observations {
+ private List<Location> location = new ArrayList<> ();;
 }

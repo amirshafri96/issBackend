@@ -3,11 +3,15 @@ package com.example.iss.utils;
 import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MsgUtils {
+	private final static Logger log = LoggerFactory.getLogger(MsgUtils.class);
 	public static <T> T jsonStringToObj(String json, Class<T> c)  throws Exception{
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -37,7 +41,8 @@ public class MsgUtils {
 		try {
 			result = mapper.writeValueAsString(obj);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.error("Error in ObjToJSONString with error: " + e, e);
+			
 		}
 		
 		return result;
